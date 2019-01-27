@@ -65,20 +65,36 @@ class MainActivity : AppCompatActivity(), MainView {
             presenter.handleUserInput(".")
         }
 
-        btnOperatorPlus.setOnClickListener {
-            presenter.handleAdditionButtonPressed()
+        btnOperatorAdd.setOnClickListener {
+            presenter.handleOperation(MainPresenter.Operation.ADD)
+        }
+
+        btnOperatorSubtract.setOnClickListener {
+            presenter.handleOperation(MainPresenter.Operation.SUBTRACT)
+        }
+
+        btnOperatorMultiply.setOnClickListener {
+            presenter.handleOperation(MainPresenter.Operation.MULTIPLY)
+        }
+
+        btnOperatorDivide.setOnClickListener {
+            presenter.handleOperation(MainPresenter.Operation.DIVIDE)
         }
 
         btnOperatorEquals.setOnClickListener {
-            presenter.handleEqualsButtonPressed()
+            presenter.operationEquals()
         }
 
         btnClear.setOnClickListener {
-            presenter.handleClearButtonPressed()
+            presenter.handleClear(false)
         }
 
         btnAllClear.setOnClickListener {
-            presenter.handleAllClear()
+            presenter.handleClear(true)
+        }
+
+        btnBackSpace.setOnClickListener {
+            presenter.handleBackspace()
         }
     }
 

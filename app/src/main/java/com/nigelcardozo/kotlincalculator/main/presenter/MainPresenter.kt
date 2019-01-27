@@ -5,14 +5,18 @@ import com.nigelcardozo.kotlincalculator.main.view.MainView
 class MainPresenter(mainView: MainView) {
 
     var view: MainView = mainView;
-    var operation: Operation? = null
-    var inputParameters: String = ""
-    var firstArgument: Float? = null
+    private var operation: Operation? = null
+    private var inputParameters: String = ""
+    private var firstArgument: Float? = null
+
+    enum class Operation {
+        ADD, SUBTRACT, MULTIPLY, DIVIDE
+    }
 
     fun getPresenter(): MainPresenter {
 
         //THIS ISN'T RIGHT... TEMPORARY - NEED TO ACTUALLY INJECT
-        return this;
+        return this
     }
 
     fun handleUserInput(input: Int) {
@@ -25,52 +29,20 @@ class MainPresenter(mainView: MainView) {
         view.displayValue(inputParameters)
     }
 
-    fun handleAdditionButtonPressed() {
+    fun handleOperation(operationSelected: Operation) {
         if (inputParameters != "") {
             val x = inputParameters
             firstArgument = x.toFloat()
 
-            operation = Operation.ADD
             inputParameters = ""
+
+            operation = operationSelected
         }
     }
 
-    fun handleSubtractionButtonPressed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    fun handleMultiplicactionButtonPressed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    fun handleDivisionButtonPressed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    fun handleEqualsButtonPressed() {
+    fun operationEquals() {
         if (firstArgument != null && inputParameters.length > 0 && operation != null) {
-
-            //SHOULD USE A LIBRARY TO DO THIS
-            when (operation) {
-                Operation.ADD -> {
-                    val x = firstArgument
-                    val y = inputParameters.toFloat()
-
-                    val result = x?.plus(y)
-
-                    if (result != null) {
-                        var resultString = result.toString()
-
-                        if (resultString.endsWith(".0")) {
-                            resultString = resultString.substring(0, resultString.length - 2)
-
-                            handleEqualsComplete(resultString)
-                        }
-
-                        view.displayValue(resultString)
-                    }
-                };
-            }
+            calculateAnswer()
         }
     }
 
@@ -80,24 +52,57 @@ class MainPresenter(mainView: MainView) {
         operation = null
     }
 
-    fun handleClearButtonPressed() {
+    fun handleClear(allClear: Boolean) {
+        if (allClear) {
+            operation = null
+            firstArgument = null
+        }
+
         inputParameters = ""
         view.displayValue("")
     }
 
-    fun handleAllClear() {
-        operation = null
-        inputParameters = ""
-        firstArgument = null
-
-        view.displayValue("")
+    fun handleBackspace() {
+        if (inputParameters.isNotEmpty()) {
+            inputParameters = inputParameters.substring(0, inputParameters.length-1)
+        }
     }
 
-    fun handleBackspaceButtonPressed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    private fun calculateAnswer() {
+        val x = firstArgument
+        val y = inputParameters.toFloat()
 
-    enum class Operation {
-        ADD, SUBTRACT, MULTIPLY, DIVIDE
+        var result: Float? = null
+
+        when (operation) {
+
+            Operation.ADD -> {
+                result = x?.plus(y)
+            }
+
+            Operation.SUBTRACT -> {
+                result = x?.minus(y)
+            }
+
+            Operation.MULTIPLY -> {
+                result = x?.times(y)
+            }
+
+            Operation.DIVIDE -> {
+                result = x?.div(y)
+            }
+        }
+
+        if (result != null) {
+            var resultString = result.toString()
+
+            if (resultString.endsWith(".0")) {
+                resultString = resultString.substring(0, resultString.length - 2)
+
+                handleEqualsComplete(resultString)
+            }
+
+            view.displayValue(resultString)
+        }
     }
 }
