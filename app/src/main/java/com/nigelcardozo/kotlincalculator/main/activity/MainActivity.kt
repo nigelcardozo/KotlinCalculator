@@ -7,21 +7,20 @@ import com.nigelcardozo.kotlincalculator.main.presenter.MainPresenter
 import com.nigelcardozo.kotlincalculator.main.view.MainView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : AppCompatActivity(), MainView {
 
-    private val presenter: MainPresenter by inject()
-
+    private val presenter: MainPresenter by inject { parametersOf(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setupOnClickListeners()
-        presenter.setView(this)
     }
 
-    fun setupOnClickListeners() {
+    private fun setupOnClickListeners() {
 
         btnNum0.setOnClickListener {
             presenter.handleUserInput(0)
@@ -102,8 +101,6 @@ class MainActivity : AppCompatActivity(), MainView {
 
     //MainView Implementation
     override fun displayValue(result: String) {
-        if (result != null) {
-            tvCalcOutput.text = result
-        }
+        tvCalcOutput.text = result
     }
 }

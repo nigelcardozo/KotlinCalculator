@@ -6,6 +6,5 @@ import org.koin.dsl.module.module
 
 val appModule = module {
 
-    factory { MainPresenter() }
-
+    single { (mainView: MainView) -> MainPresenter(mainView) }
 }

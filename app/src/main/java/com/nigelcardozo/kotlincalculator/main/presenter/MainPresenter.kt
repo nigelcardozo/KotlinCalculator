@@ -2,10 +2,8 @@ package com.nigelcardozo.kotlincalculator.main.presenter
 
 import com.nigelcardozo.kotlincalculator.main.view.MainView
 
-class MainPresenter() {
+class MainPresenter(val view: MainView) {
 
-    private var view: MainView? = null
-    //var view: MainView = mainView;
     private var operation: Operation? = null
     private var inputParameters: String = ""
     private var firstArgument: Float? = null
@@ -14,16 +12,8 @@ class MainPresenter() {
         ADD, SUBTRACT, MULTIPLY, DIVIDE
     }
 
-//    fun getPresenter(): MainPresenter {
-//
-//        //THIS ISN'T RIGHT... TEMPORARY - NEED TO ACTUALLY INJECT
-//        return this
-//    }
-
-    fun setView(mainView: MainView) {
-        view = mainView
-    }
-
+    //Public Methods
+    
     fun handleUserInput(input: Int) {
         inputParameters += input.toString()
         displayValue(inputParameters)
@@ -51,12 +41,6 @@ class MainPresenter() {
         }
     }
 
-    fun handleEqualsComplete(resultString: String) {
-        firstArgument = null
-        inputParameters = resultString
-        operation = null
-    }
-
     fun handleClear(allClear: Boolean) {
         if (allClear) {
             operation = null
@@ -71,6 +55,15 @@ class MainPresenter() {
         if (inputParameters.isNotEmpty()) {
             inputParameters = inputParameters.substring(0, inputParameters.length-1)
         }
+    }
+
+
+    //Private methods
+
+    private fun handleEqualsComplete(resultString: String) {
+        firstArgument = null
+        inputParameters = resultString
+        operation = null
     }
 
     private fun calculateAnswer() {
@@ -111,7 +104,7 @@ class MainPresenter() {
         }
     }
 
-    fun displayValue(value: String) {
-        view?.displayValue(value)
+    private fun displayValue(value: String) {
+        view.displayValue(value)
     }
 }
