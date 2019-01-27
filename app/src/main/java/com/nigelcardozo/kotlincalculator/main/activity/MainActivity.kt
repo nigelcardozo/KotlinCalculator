@@ -6,10 +6,11 @@ import com.nigelcardozo.kotlincalculator.R
 import com.nigelcardozo.kotlincalculator.main.presenter.MainPresenter
 import com.nigelcardozo.kotlincalculator.main.view.MainView
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), MainView {
 
-    val presenter: MainPresenter = MainPresenter(this).getPresenter()
+    private val presenter: MainPresenter by inject()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity(), MainView {
         setContentView(R.layout.activity_main)
 
         setupOnClickListeners()
+        presenter.setView(this)
     }
 
     fun setupOnClickListeners() {
