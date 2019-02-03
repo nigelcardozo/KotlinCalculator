@@ -15,12 +15,21 @@ class MainPresenter(val view: MainView) {
     //Public Methods
     
     fun handleUserInput(input: Int) {
+        if (input < 0) return
+
         inputParameters += input.toString()
         displayValue(inputParameters)
     }
 
     fun handleUserInput(input: String) {
-        inputParameters += input
+        if (input != ".") return
+
+        inputParameters += if (inputParameters != "") {
+            input
+        } else {
+            "0$input"
+        }
+
         displayValue(inputParameters)
     }
 
@@ -36,7 +45,7 @@ class MainPresenter(val view: MainView) {
     }
 
     fun operationEquals() {
-        if (firstArgument != null && inputParameters.length > 0 && operation != null) {
+        if (firstArgument != null && inputParameters.isNotEmpty() && operation != null) {
             calculateAnswer()
         }
     }
