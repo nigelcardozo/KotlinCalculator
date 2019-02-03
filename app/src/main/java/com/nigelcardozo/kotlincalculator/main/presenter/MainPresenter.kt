@@ -107,9 +107,4 @@ class MainPresenter(val view: MainView) {
     private fun displayValue(value: String) {
         view.displayValue(value)
     }
-
-    //TODO: REMOVE - This is purely for MOCKK TESTING
-    fun addTwoNumbers(a: Int, b: Int) : Int {
-        return(a + b)
-    }
 }
