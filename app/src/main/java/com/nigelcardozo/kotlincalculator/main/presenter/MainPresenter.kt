@@ -13,7 +13,17 @@ class MainPresenter(val view: MainView) {
     }
 
     //Public Methods
-    
+    fun create() {
+
+    }
+
+    fun destroy() {
+        operation = null
+        firstArgument = null
+        inputParameters = ""
+        //TODO: Set view to null ?
+    }
+
     fun handleUserInput(input: Int) {
         if (input < 0) return
 
