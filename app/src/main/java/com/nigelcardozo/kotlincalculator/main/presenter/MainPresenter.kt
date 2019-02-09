@@ -44,6 +44,11 @@ class MainPresenter(val view: MainView) {
     }
 
     fun handleOperation(operationSelected: Operation) {
+
+        if (firstArgument != null && inputParameters.isNotEmpty() && operation != null) {
+            calculateAnswer(true)
+        }
+
         if (inputParameters != "") {
             val x = inputParameters
             firstArgument = x.toFloat()
@@ -56,7 +61,7 @@ class MainPresenter(val view: MainView) {
 
     fun operationEquals() {
         if (firstArgument != null && inputParameters.isNotEmpty() && operation != null) {
-            calculateAnswer()
+            calculateAnswer(false)
         }
     }
 
@@ -85,7 +90,7 @@ class MainPresenter(val view: MainView) {
         operation = null
     }
 
-    private fun calculateAnswer() {
+    private fun calculateAnswer(calculateOnly: Boolean) {
         val x = firstArgument
         val y = inputParameters.toFloat()
 
@@ -119,7 +124,9 @@ class MainPresenter(val view: MainView) {
                 handleEqualsComplete(resultString)
             }
 
-            displayValue(resultString)
+            if (!calculateOnly) {
+                displayValue(resultString)
+            }
         }
     }
 

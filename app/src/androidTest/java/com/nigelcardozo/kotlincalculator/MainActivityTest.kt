@@ -8,20 +8,16 @@ import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.nigelcardozo.kotlincalculator.activity.MainActivity
-import com.nigelcardozo.kotlincalculator.main.presenter.MainPresenter
 import com.nigelcardozo.kotlincalculator.main.view.MainView
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
-import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.KoinTest
-import org.koin.test.declare
 import android.app.Activity
-import java.lang.Thread.sleep
 
 
 @RunWith(AndroidJUnit4::class)
@@ -77,10 +73,6 @@ class MainActivityTest : KoinTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        //declare { single { (mainView: MainView) -> MainPresenter(mainView) } }
-
-        //worksheetItemsLiveData = MutableLiveData()
-        //every { worksheetViewModel.worksheetItems() } returns worksheetItemsLiveData
     }
 
     @After
@@ -171,5 +163,40 @@ class MainActivityTest : KoinTest {
         onView(withId(R.id.btnNum3)).perform(click())
         onView(withId(R.id.btnOperatorEquals)).perform(click())
         onView(withId(R.id.tvCalcOutput)).check(matches(withText("3")))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun multipleAdditionTest() {
+        onView(withId(R.id.tvCalcOutput)).check(matches(withText("")))
+        onView(withId(R.id.btnNum1)).perform(click())
+        onView(withId(R.id.btnNum1)).perform(click())
+        onView(withId(R.id.btnOperatorAdd)).perform(click())
+        onView(withId(R.id.btnNum2)).perform(click())
+        onView(withId(R.id.btnNum2)).perform(click())
+        onView(withId(R.id.btnOperatorAdd)).perform(click())
+        onView(withId(R.id.btnNum3)).perform(click())
+        onView(withId(R.id.btnNum3)).perform(click())
+        onView(withId(R.id.btnOperatorEquals)).perform(click())
+        onView(withId(R.id.tvCalcOutput)).check(matches(withText("66")))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun multipleOperationTest() {
+        onView(withId(R.id.tvCalcOutput)).check(matches(withText("")))
+        onView(withId(R.id.btnNum1)).perform(click())
+        onView(withId(R.id.btnNum1)).perform(click())
+        onView(withId(R.id.btnOperatorAdd)).perform(click())
+        onView(withId(R.id.btnNum2)).perform(click())
+        onView(withId(R.id.btnNum2)).perform(click())
+        onView(withId(R.id.btnOperatorAdd)).perform(click())
+        onView(withId(R.id.btnNum3)).perform(click())
+        onView(withId(R.id.btnNum3)).perform(click())
+        onView(withId(R.id.btnOperatorSubtract)).perform(click())
+        onView(withId(R.id.btnNum4)).perform(click())
+        onView(withId(R.id.btnNum4)).perform(click())
+        onView(withId(R.id.btnOperatorEquals)).perform(click())
+        onView(withId(R.id.tvCalcOutput)).check(matches(withText("22")))
     }
 }
