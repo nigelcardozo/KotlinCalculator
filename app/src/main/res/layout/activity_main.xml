@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/material_grey"
         tools:context=".activity.MainActivity">
 
     <TextView
@@ -38,7 +39,7 @@
             android:layout_columnSpan="1"
             android:textAllCaps="false"
             android:layout_marginTop="200dp" app:layout_constraintTop_toBottomOf="@+id/tvCalcOutput"
-            android:layout_marginBottom="10dp" app:layout_constraintBottom_toTopOf="@+id/btnNum1"
+            android:layout_marginBottom="16dp" app:layout_constraintBottom_toTopOf="@+id/btnNum1"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/btnAllClear"
             android:layout_marginStart="16dp" app:layout_constraintHorizontal_chainStyle="packed"/>
@@ -102,7 +103,7 @@
             android:layout_columnSpan="1"
             android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@+id/btnClear" android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline1" android:layout_marginBottom="11dp"
+            app:layout_constraintStart_toStartOf="@+id/guideline1" android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toTopOf="@+id/btnNum4"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/btnNum2"
             app:layout_constraintHorizontal_chainStyle="packed"/>
@@ -163,7 +164,7 @@
             android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@+id/btnNum1"
             app:layout_constraintBottom_toTopOf="@+id/btnNum7"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toStartOf="@+id/btnNum5" android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
@@ -224,7 +225,7 @@
             android:layout_columnSpan="1"
             android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@+id/btnNum4"
-            app:layout_constraintBottom_toTopOf="@+id/btnNum0" android:layout_marginBottom="11dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnNum0" android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
             app:layout_constraintHorizontal_chainStyle="packed"
