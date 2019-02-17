@@ -109,6 +109,49 @@ class MainPresenterTest {
     }
 
     @Test
+    fun testSingleDecimalPoint() {
+        val sut = MainPresenter(mainViewMock)
+
+        sut.handleUserInput(1)
+        sut.handleUserInput(".")
+        sut.handleUserInput(".")
+        sut.handleUserInput(5)
+        sut.handleUserInput(".")
+        sut.handleUserInput(2)
+
+        verify (exactly = 4) {
+            mainViewMock.displayValue(any())
+        }
+
+        verify {
+            mainViewMock.displayValue("1")
+            mainViewMock.displayValue("1.")
+            mainViewMock.displayValue("1.52")
+        }
+    }
+
+    @Test
+    fun testSingleDecimalPointRepeated() {
+        val sut = MainPresenter(mainViewMock)
+
+        sut.handleUserInput(1)
+        sut.handleUserInput(".")
+        sut.handleUserInput(".")
+        sut.handleUserInput(".")
+        sut.handleUserInput(2)
+
+        verify (exactly = 3) {
+            mainViewMock.displayValue(any())
+        }
+
+        verify {
+            mainViewMock.displayValue("1")
+            mainViewMock.displayValue("1.")
+            mainViewMock.displayValue("1.2")
+        }
+    }
+
+    @Test
     fun testHandleSingleDigitAdditionOperation() {
         val sut = MainPresenter(mainViewMock)
 

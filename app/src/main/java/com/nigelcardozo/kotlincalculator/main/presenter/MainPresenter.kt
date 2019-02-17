@@ -34,6 +34,8 @@ class MainPresenter(val view: MainView) {
     fun handleUserInput(input: String) {
         if (input != ".") return
 
+        if (inputParameters.length > 0 && inputParameters.contains(".")) return
+
         inputParameters += if (inputParameters != "") {
             input
         } else {
